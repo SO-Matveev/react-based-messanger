@@ -16,7 +16,11 @@ export const getMessages = createAsyncThunk(
 export const messagesSlice = createSlice({
   name: "messages",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteMessage: (state, action) => {
+      return state.filter((message) => message.id !== action.payload.id);
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(getMessages.fulfilled, (state, action) => {
@@ -26,5 +30,5 @@ export const messagesSlice = createSlice({
 });
 
 export const selectMessages = (state) => state.messages.messages;
-
+export const { deleteMessage } = messagesSlice.actions;
 export default messagesSlice.reducer;
