@@ -1,13 +1,8 @@
 import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { deleteMessage } from "./messagesSlice";
+import PropTypes from "prop-types";
 
-function Message({ message }) {
-  const dispatch = useDispatch();
-  const handleMessageDelete = (message) => {
-    dispatch(deleteMessage(message));
-  };
+function Message({ message, onDelete }) {
   return (
     <Card>
       <Card.Header>
@@ -15,11 +10,14 @@ function Message({ message }) {
       </Card.Header>
       <Card.Body class="d-flex justify-content-between">
         {message.text}
-        <Button onClick={handleMessageDelete} class="btn btn-warning">
-          Удалить сообщениеs
+        <Button onClick={onDelete} variant="warning">
+          Удалить сообщение
         </Button>
       </Card.Body>
     </Card>
   );
 }
+Message.propTypes = {
+  onDelete: PropTypes.func,
+};
 export default Message;
