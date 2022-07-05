@@ -3,6 +3,8 @@ import api from "../../helpers/api";
 
 const initialState = {
   messages: [],
+  isConnected: false,
+  isConnecting: false,
 };
 
 export const getMessages = createAsyncThunk(
@@ -24,6 +26,18 @@ export const messagesSlice = createSlice({
         ),
       };
     },
+    connect: (state) => {
+      state.isConnecting = true;
+    },
+    connected: (state) => {
+      state.isConnected = true;
+    },
+    addMessage: (state, action) => {
+      state.messages = [...state.messages, action.payload];
+    },
+    submitMessage: (state) => {
+      return;
+    },
   },
 
   extraReducers: (builder) => {
@@ -34,5 +48,7 @@ export const messagesSlice = createSlice({
 });
 
 export const selectMessages = (state) => state.messages.messages;
-export const { deleteMessage } = messagesSlice.actions;
+
+export const { deleteMessage, connect, connected, addMessage, submitMessage } =
+  messagesSlice.actions;
 export default messagesSlice.reducer;
