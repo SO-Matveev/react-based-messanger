@@ -6,9 +6,9 @@ function Message({ message, onDelete }) {
   return (
     <Card>
       <Card.Header>
-        {message.name} / {message.createdAt}
+        {message.name} / {new Date(message.createdAt).toLocaleTimeString()}
       </Card.Header>
-      <Card.Body class="d-flex justify-content-between">
+      <Card.Body className="d-flex justify-content-between">
         {message.text}
         <Button onClick={onDelete} variant="warning">
           Удалить сообщение
