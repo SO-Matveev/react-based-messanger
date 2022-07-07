@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import {
   getMessages,
   selectMessages,
@@ -17,11 +18,16 @@ function Chat() {
   const { chatId } = useParams();
   const dispatch = useDispatch();
   const messages = useSelector(selectMessages);
+  const messagesRef = useRef();
 
   useEffect(() => {
     dispatch(getMessages(chatId));
     dispatch(connect());
   }, [chatId]);
+
+  useEffect(() => {
+    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  }, [messages]);
 
   const handleMessageDelete = (message) => {
     dispatch(deleteMessage(message));
@@ -30,11 +36,13 @@ function Chat() {
   //   dispatch(deleteChat(chatId));
   // };
 
-  const handleSubmit = ({ name, text }) => {
+  const handleSubmit = ({ name, text, imageURL, location }) => {
     const message = {
       chatId,
       name,
       text,
+      imageURL,
+      location,
     };
     dispatch(submitMessage(message));
   };
@@ -45,16 +53,24 @@ function Chat() {
         {" "}
         Удалить чат {chatId}
       </Button> */}
-      {messages.map((message) => (
-        <div key={message._id} className="mt-3">
-          <Message
-            message={message}
-            onDelete={() => handleMessageDelete(message)}
-          />
-        </div>
-      ))}
+      <SMessages ref={messagesRef}>
+        {messages.map((message) => (
+          <div key={message._id} className="mt-3">
+            <Message
+              message={message}
+              onDelete={() => handleMessageDelete(message)}
+            />
+          </div>
+        ))}
+      </SMessages>
+
       <MessageForm onSubmit={handleSubmit} />
     </div>
   );
 }
 export default Chat;
+
+const SMessages = styled.div`
+  max-height: 50vh;
+  overflow: scroll;
+`;
