@@ -1,4 +1,5 @@
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
+import { useState } from "react";
 
 const options = {
   enableHighAccuracy: true,
@@ -7,17 +8,37 @@ const options = {
 };
 
 function Location({ onLocation }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
+  const [value, setValue] = useState(false);
+
   const onSucces = (pos) => {
+    setLoading(false);
+    setValue(pos.coords);
     onLocation(pos.coords);
   };
-  const onError = (err) => {};
+  const onError = (err) => {
+    setLoading(false);
+    setError(true);
+  };
 
   const handleClick = () => {
+    setLoading(true);
     navigator.geolocation.getCurrentPosition(onSucces, onError, options);
   };
   return (
-    <Button type="button" variant="outline-info" onClick={handleClick}>
+    <Button type="button" variant="outline-primary" onClick={handleClick}>
       Определить координаты
+      {loading && (
+        <Spinner
+          className="ms-2"
+          size="sm"
+          animation="border"
+          variant="primary"
+        />
+      )}
+      {value && <span className="ms-2">Done</span>}
+      {error && <span className="ms-2">Error</span>}
     </Button>
   );
 }
