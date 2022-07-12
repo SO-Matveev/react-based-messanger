@@ -19,7 +19,7 @@ function Chats() {
     <div>
       <h1>Чаты</h1>
       <div>
-        <Button onclick={handleAddChat}>+ Добавить чат</Button>
+        <Button onClick={handleAddChat}>+ Добавить чат</Button>
       </div>
       <Nav variant="pills">
         {chats.map((chat) => (

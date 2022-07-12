@@ -4,11 +4,15 @@ import FileUpload from "../components/FileUpload";
 import Location from "../components/Location";
 
 function MessageForm({ onSubmit }) {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, watch } = useForm();
+  const location = watch("location");
+  const imageURL = watch("imageURL");
 
   const onFormSubmit = (data) => {
     onSubmit(data);
     setValue("text", "");
+    setValue("location", null);
+    setValue("imageURL", null);
   };
   const handleKeyDown = (event) => {
     if (event.code === "Enter") {
@@ -17,8 +21,9 @@ function MessageForm({ onSubmit }) {
   };
   const handleImageSubmit = (imageURL) => {
     setValue("imageURL", imageURL);
+    console.log(imageURL);
   };
-  const handleLocation = (location) => {
+  const handleLocationChange = (location) => {
     setValue("location", location);
   };
 
@@ -36,10 +41,18 @@ function MessageForm({ onSubmit }) {
         />
       </div>
       <div className="mb-2">
-        <FileUpload onUpload={handleImageSubmit} {...register("imageURL")} />
+        <FileUpload
+          onUpload={handleImageSubmit}
+          {...register("imageURL")}
+          value={imageURL}
+        />
       </div>
       <div className="mb-2">
-        <Location onLocation={handleLocation} {...register("location")} />
+        <Location
+          {...register("location")}
+          onChange={handleLocationChange}
+          value={location}
+        />
       </div>
       <Button type="submit">Отправить</Button>
     </form>

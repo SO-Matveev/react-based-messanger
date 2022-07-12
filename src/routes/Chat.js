@@ -6,7 +6,7 @@ import {
   getMessages,
   selectMessages,
   deleteMessage,
-  deleteChat,
+  // deleteChat,
   connect,
   submitMessage,
 } from "../features/chats/messagesSlice";
