@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   getMessages,
   selectMessages,
@@ -15,6 +16,7 @@ import { Button } from "react-bootstrap";
 import MessageForm from "../features/MessageForm";
 
 function Chat() {
+  const { user, isAuthenticated } = useAuth0();
   const { chatId } = useParams();
   const dispatch = useDispatch();
   const messages = useSelector(selectMessages);
@@ -36,15 +38,17 @@ function Chat() {
   //   dispatch(deleteChat(chatId));
   // };
 
-  const handleSubmit = ({ name, text, imageURL, location }) => {
-    const message = {
-      chatId,
-      name,
-      text,
-      imageURL,
-      location,
-    };
-    dispatch(submitMessage(message));
+  const handleSubmit = ({ text, imageURL, location }) => {
+    if (user) {
+      const message = {
+        chatId,
+        name: user.name,
+        text,
+        imageURL,
+        location,
+      };
+      dispatch(submitMessage(message));
+    }
   };
   return (
     <div>
@@ -63,8 +67,11 @@ function Chat() {
           </div>
         ))}
       </SMessages>
-
-      <MessageForm onSubmit={handleSubmit} />
+      {isAuthenticated ? (
+        <MessageForm onSubmit={handleSubmit} />
+      ) : (
+        <div>Вы не авторизованы</div>
+      )}
     </div>
   );
 }
