@@ -15,7 +15,10 @@ function Auth() {
   }
   return (
     <div>
-      <Button variant="outline-success" onClick={() => loginWithRedirect()}>
+      <Button
+        variant="outline-success mt-3"
+        onClick={() => loginWithRedirect()}
+      >
         Войти
       </Button>
     </div>
