@@ -8,6 +8,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import "./App.css";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import Auth from "./components/Auth";
+
 function App() {
   return (
     <Wrapper apiKey="AIzaSyBEWfYnG7bYhE2NUEvCyKs5j_2-a4LGmgE">

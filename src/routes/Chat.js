@@ -7,10 +7,10 @@ import {
   getMessages,
   selectMessages,
   deleteMessage,
-  // deleteChat,
   connect,
   submitMessage,
 } from "../features/chats/messagesSlice";
+import { deleteChat } from "../features/chats/chatsSlice";
 import Message from "../features/chats/Message";
 import { Button } from "react-bootstrap";
 import MessageForm from "../features/MessageForm";
@@ -34,9 +34,9 @@ function Chat() {
   const handleMessageDelete = (message) => {
     dispatch(deleteMessage(message));
   };
-  // const handleChatDelete = (chatId) => {
-  //   dispatch(deleteChat(chatId));
-  // };
+  const handleChatDelete = (chatId) => {
+    dispatch(deleteChat(chatId));
+  };
 
   const handleSubmit = ({ text, imageURL, location }) => {
     if (user) {
@@ -53,10 +53,10 @@ function Chat() {
   return (
     <div>
       <h1>Чат {chatId}</h1>
-      {/* <Button variant="danger" onClick={handleChatDelete}>
+      <Button variant="danger" onClick={handleChatDelete}>
         {" "}
         Удалить чат {chatId}
-      </Button> */}
+      </Button>
       <SMessages ref={messagesRef}>
         {messages.map((message) => (
           <div key={message._id} className="mt-3">
