@@ -5,7 +5,7 @@ function Auth() {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   if (isAuthenticated) {
     return (
-      <div>
+      <div className="mt-3">
         <span className="me-2">{user.name}</span>
         <Button variant="outline-danger" onClick={() => logout()}>
           Выйти
