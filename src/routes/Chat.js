@@ -53,7 +53,7 @@ function Chat() {
   return (
     <div>
       <h1>Чат {chatId}</h1>
-      <Button variant="danger" onClick={handleChatDelete}>
+      <Button variant="danger" onClick={() => handleChatDelete(chatId)}>
         {" "}
         Удалить чат {chatId}
       </Button>
@@ -62,11 +62,12 @@ function Chat() {
           <div key={message._id} className="mt-3">
             <Message
               message={message}
-              onDelete={() => handleMessageDelete(message)}
+              onDelete={() => handleMessageDelete(message._id)}
             />
           </div>
         ))}
       </SMessages>
+
       {isAuthenticated ? (
         <MessageForm onSubmit={handleSubmit} />
       ) : (

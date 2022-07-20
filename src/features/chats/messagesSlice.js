@@ -16,8 +16,9 @@ export const getMessages = createAsyncThunk(
 );
 export const deleteMessage = createAsyncThunk(
   "messages/getMessages",
-  async (chatId) => {
-    const response = await api.delete(`/chats/${chatId}/messages/{_id}`);
+  async (chatId, message) => {
+    await api.delete(`/chats/${chatId}/messages/${message._id}`, {});
+    const response = await api.get(`/chats/${chatId}/messages`);
     return response.data;
   }
 );
