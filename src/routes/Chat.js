@@ -34,7 +34,7 @@ function Chat() {
   const handleMessageDelete = (chatId, message) => {
     dispatch(deleteMessage(chatId, message));
     console.log(chatId, message);
-    //в Handle приходит номер message._id
+    //в Handle приходит номер chatId и message._id
   };
 
   const handleChatDelete = (chatId) => {
