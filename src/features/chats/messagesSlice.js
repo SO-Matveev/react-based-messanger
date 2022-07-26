@@ -20,6 +20,7 @@ export const deleteMessage = createAsyncThunk(
     await api.delete(`/chats/${chatId}/messages/${message._id}`, {
       message,
     });
+    //Cannot GET /chats/62e0089b63944a38385abcc3/messages/undefined
 
     const response = await api.get(`/chats/${chatId}/messages`);
     return response.data;
