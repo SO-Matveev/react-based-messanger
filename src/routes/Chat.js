@@ -33,7 +33,10 @@ function Chat() {
 
   const handleMessageDelete = (message) => {
     dispatch(deleteMessage(message));
+    console.log(message);
+    //в Handle приходит номер message._id
   };
+
   const handleChatDelete = (chatId) => {
     dispatch(deleteChat(chatId));
   };

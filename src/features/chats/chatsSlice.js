@@ -15,8 +15,9 @@ export const addChats = createAsyncThunk("chats/addChats", async (title) => {
   });
   return response.data;
 });
+
 export const deleteChat = createAsyncThunk(
-  "chats/deleteChats",
+  "chats/deleteChat",
   async (chatId) => {
     await api.delete(`/chats/${chatId}`, { chatId });
     const response = await api.get(`/chats`);

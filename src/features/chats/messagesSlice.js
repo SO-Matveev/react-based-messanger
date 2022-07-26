@@ -15,9 +15,12 @@ export const getMessages = createAsyncThunk(
   }
 );
 export const deleteMessage = createAsyncThunk(
-  "messages/getMessages",
+  "messages/deleteMessage",
   async (chatId, message) => {
-    await api.delete(`/chats/${chatId}/messages/${message._id}`, {});
+    await api.delete(`/chats/${chatId}/messages/${message._id}`, {
+      message,
+    });
+
     const response = await api.get(`/chats/${chatId}/messages`);
     return response.data;
   }
@@ -27,13 +30,6 @@ export const messagesSlice = createSlice({
   name: "messages",
   initialState,
   reducers: {
-    // deleteMessage: (state, action) => {
-    //   return {
-    //     messages: state.messages.filter(
-    //       (message) => message._id !== action.payload._id
-    //     ),
-    //   };
-    // },
     connect: (state) => {
       state.isConnecting = true;
     },
@@ -50,6 +46,9 @@ export const messagesSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getMessages.fulfilled, (state, action) => {
+      state.messages = action.payload;
+    });
+    builder.addCase(deleteMessage.fulfilled, (state, action) => {
       state.messages = action.payload;
     });
   },
