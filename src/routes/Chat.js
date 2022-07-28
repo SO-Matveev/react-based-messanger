@@ -31,10 +31,9 @@ function Chat() {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
   }, [messages]);
 
-  const handleMessageDelete = (chatId, message) => {
-    dispatch(deleteMessage(chatId, message));
-    console.log(chatId, message);
-    //в Handle приходит номер chatId и message._id
+  const handleMessageDelete = (message) => {
+    dispatch(deleteMessage(message));
+    console.log(message);
   };
 
   const handleChatDelete = (chatId) => {
@@ -65,7 +64,7 @@ function Chat() {
           <div key={message._id} className="mt-3">
             <Message
               message={message}
-              onDelete={() => handleMessageDelete(chatId, message._id)}
+              onDelete={() => handleMessageDelete(message)}
             />
           </div>
         ))}
