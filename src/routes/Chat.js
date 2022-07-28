@@ -10,7 +10,7 @@ import {
   connect,
   submitMessage,
 } from "../features/chats/messagesSlice";
-import { deleteChat } from "../features/chats/chatsSlice";
+import { deleteChat, hiddenChat } from "../features/chats/chatsSlice";
 import Message from "../features/chats/Message";
 import { Button } from "react-bootstrap";
 import MessageForm from "../features/MessageForm";
@@ -20,6 +20,7 @@ function Chat() {
   const { chatId } = useParams();
   const dispatch = useDispatch();
   const messages = useSelector(selectMessages);
+
   const messagesRef = useRef();
 
   useEffect(() => {
@@ -33,11 +34,10 @@ function Chat() {
 
   const handleMessageDelete = (message) => {
     dispatch(deleteMessage(message));
-    console.log(message);
   };
 
   const handleChatDelete = (chatId) => {
-    dispatch(deleteChat(chatId));
+    dispatch(deleteChat(chatId), hiddenChat(chatId));
   };
 
   const handleSubmit = ({ text, imageURL, location }) => {
