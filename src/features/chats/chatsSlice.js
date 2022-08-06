@@ -21,7 +21,6 @@ export const deleteChat = createAsyncThunk(
   async (chatId) => {
     await api.delete(`/chats/${chatId}`, { chatId });
     const response = await api.get(`/chats`);
-
     return response.data;
   }
 );
@@ -29,14 +28,7 @@ export const deleteChat = createAsyncThunk(
 export const chatsSlice = createSlice({
   name: "chats",
   initialState,
-  reducers: {
-    hiddenChat: (state, action) => {
-      console.log(action);
-      return {
-        chats: state.chats.filter((chatId) => chatId !== action.payload.chatId),
-      };
-    },
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder.addCase(getChats.fulfilled, (state, action) => {
@@ -52,6 +44,5 @@ export const chatsSlice = createSlice({
 });
 
 export const selectChats = (state) => state.chats.chats;
-export const { hiddenChat } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

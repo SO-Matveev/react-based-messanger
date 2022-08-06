@@ -10,7 +10,7 @@ import {
   connect,
   submitMessage,
 } from "../features/chats/messagesSlice";
-import { deleteChat, hiddenChat } from "../features/chats/chatsSlice";
+import { deleteChat } from "../features/chats/chatsSlice";
 import Message from "../features/chats/Message";
 import { Button } from "react-bootstrap";
 import MessageForm from "../features/MessageForm";
@@ -37,7 +37,7 @@ function Chat() {
   };
 
   const handleChatDelete = (chatId) => {
-    dispatch(deleteChat(chatId), hiddenChat(chatId));
+    dispatch(deleteChat(chatId));
   };
 
   const handleSubmit = ({ text, imageURL, location }) => {
